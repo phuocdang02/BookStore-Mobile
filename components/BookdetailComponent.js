@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { View, Text } from "react-native";
 import { Card, Image } from "react-native-elements";
 
+/* Declare from shared folder */
+import { BOOKS } from "../shared/books";
+
 class RenderBook extends Component {
   render() {
     const book = this.props.book;
@@ -17,21 +20,30 @@ class RenderBook extends Component {
               alignItems: "center",
               justifyContent: "center",
             }}
-          />
-          <Card.FeaturedTitle>{book.name}</Card.FeaturedTitle>
-          <Text style={{ margin: 10 }}>{book.description}</Text>
+          >
+            <Card.FeaturedTitle style={{ color: "#FFF" }}>
+              {book.title}
+            </Card.FeaturedTitle>
+          </Image>
+          <Text style={{ margin: 10 }}>{book.author}</Text>
         </Card>
       );
     }
-    return (<View/>);
+    return <View />;
   }
 }
 
-class Bookdetail extends Component{
-    render(){
-        return(
-            <RenderBook book = {this.props.book}/>
-        );
-    }
+class Bookdetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      books: BOOKS,
+    };
+  }
+  render() {
+    const bookId = parseInt(this.props.route.params.bookId);
+    const book = this.state.books[bookId];
+    return <RenderBook book={book} />;
+  }
 }
 export default Bookdetail;

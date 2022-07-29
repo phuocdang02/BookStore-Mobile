@@ -1,6 +1,6 @@
 export const BOOKS = [
   {
-    id: 1,
+    id: 0,
     author: "Chinua Achebe",
     country: "Nigeria",
     imageLink: "require('./images/things-fall-apart.jpg')",
@@ -10,9 +10,10 @@ export const BOOKS = [
     title: "Things Fall Apart",
     year: 1958,
     description: " ",
+    featured: true,
   },
   {
-    id: 2,
+    id: 1,
     author: "Hans Christian Andersen",
     country: "Denmark",
     imageLink: "require('./images/fairy-tales.jpg')",
@@ -22,9 +23,10 @@ export const BOOKS = [
     title: "Fairy tales",
     year: 1836,
     description: " ",
+    featured: true,
   },
   {
-    id: 3,
+    id: 2,
     author: "Dante Alighieri",
     country: "Italy",
     imageLink: "require('./images/the-divine-comedy.jpg')",
@@ -34,9 +36,10 @@ export const BOOKS = [
     title: "The Divine Comedy",
     year: 1315,
     description: " ",
+    featured: true,
   },
   {
-    id: 4,
+    id: 3,
     author: "Unknown",
     country: "Sumer and Akkadian Empire",
     imageLink: "require('./images/the-epic-of-gilgamesh.jpg')",
@@ -46,9 +49,10 @@ export const BOOKS = [
     title: "The Epic Of Gilgamesh",
     year: -1700,
     description: " ",
+    featured: true,
   },
   {
-    id: 5,
+    id: 4,
     author: "Unknown",
     country: "Achaemenid Empire",
     imageLink: "require('./images/the-book-of-job.jpg')",
@@ -60,7 +64,7 @@ export const BOOKS = [
     description: " ",
   },
   {
-    id: 6,
+    id: 5,
     author: "Unknown",
     country: "India/Iran/Iraq/Egypt/Tajikistan",
     imageLink: "require('./images/one-thousand-and-one-nights.jpg')",
@@ -72,7 +76,7 @@ export const BOOKS = [
     description: " ",
   },
   {
-    id: 7,
+    id: 6,
     author: "Unknown",
     country: "Iceland",
     imageLink: "require('./images/njals-saga.jpg')",
@@ -84,7 +88,7 @@ export const BOOKS = [
     description: " ",
   },
   {
-    id: 8,
+    id: 7,
     author: "Jane Austen",
     country: "United Kingdom",
     imageLink: "require('./images/pride-and-prejudice.jpg')",
@@ -96,7 +100,7 @@ export const BOOKS = [
     description: " ",
   },
   {
-    id: 9,
+    id: 8,
     author: "Honor\u00e9 de Balzac",
     country: "France",
     imageLink: "require('./images/le-pere-goriot.jpg')",
@@ -108,7 +112,7 @@ export const BOOKS = [
     description: " ",
   },
   {
-    id: 10,
+    id: 9,
     author: "Samuel Beckett",
     country: "Republic of Ireland",
     imageLink: "require('./images/molloy-malone-dies-the-unnamable.jpg')",
@@ -120,7 +124,7 @@ export const BOOKS = [
     description: " ",
   },
   {
-    id: 11,
+    id: 10,
     author: "Giovanni Boccaccio",
     country: "Italy",
     imageLink: "require('./images/the-decameron.jpg')",
@@ -129,6 +133,18 @@ export const BOOKS = [
     pages: 1024,
     title: "The Decameron",
     year: 1351,
+    description: " ",
+  },
+  {
+    id: 11,
+    author: "William Faulkner",
+    country: "United States",
+    imageLink: "require('./images/the-sound-and-the-fury.jpg')",
+    language: "English",
+    link: "https://en.wikipedia.org/wiki/The_Sound_and_the_Fury\n",
+    pages: 326,
+    title: "The Sound and the Fury",
+    year: 1929,
     description: " ",
   },
   {
@@ -1187,18 +1203,6 @@ export const BOOKS = [
     pages: 408,
     title: "Memoirs of Hadrian",
     year: 1951,
-    description: " ",
-  },
-  {
-    id: 100,
-    author: "William Faulkner",
-    country: "United States",
-    imageLink: "require('./images/the-sound-and-the-fury.jpg')",
-    language: "English",
-    link: "https://en.wikipedia.org/wiki/The_Sound_and_the_Fury\n",
-    pages: 326,
-    title: "The Sound and the Fury",
-    year: 1929,
     description: " ",
   },
 ];
