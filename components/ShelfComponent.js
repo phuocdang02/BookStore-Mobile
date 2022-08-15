@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FlatList } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
+import { ScrollView } from "react-native-virtualized-view";
 import { BOOKS } from "../shared/books";
 
 class Shelf extends Component {
@@ -22,16 +23,18 @@ class Shelf extends Component {
   renderShelfItem(item, index) {
     const { navigate } = this.props.navigation;
     return (
-      <ListItem
-        key={index}
-        onPress={() => navigate("Bookdetail", { bookId: item.id })}
-      >
-        <Avatar source={require("./images/beloved.jpg")} />
-        <ListItem.Content>
-          <ListItem.Title> {item.title} </ListItem.Title>
-          <ListItem.Subtitle> {item.author} </ListItem.Subtitle>
-        </ListItem.Content>
-      </ListItem>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ListItem
+          key={index}
+          onPress={() => navigate("Bookdetail", { bookId: item.id })}
+        >
+          <Avatar source={require("./images/beloved.jpg")} />
+          <ListItem.Content>
+            <ListItem.Title> {item.title} </ListItem.Title>
+            <ListItem.Subtitle> {item.author} </ListItem.Subtitle>
+          </ListItem.Content>
+        </ListItem>
+      </ScrollView>
     );
   }
 }
