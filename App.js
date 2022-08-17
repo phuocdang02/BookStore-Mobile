@@ -6,9 +6,9 @@ import Landing from './components/LandingComponent';
 class App extends Component {
   render() {
     return (
-      <Landing/>
+      //<Landing/>
       //<Main />
-      //<Login/>
+      <Login/>
     );
   }
 }
