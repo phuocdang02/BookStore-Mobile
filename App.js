@@ -7,8 +7,8 @@ class App extends Component {
   render() {
     return (
       //<Landing/>
-      //<Main />
-      <Login/>
+      <Main />
+      //<Login/>
     );
   }
 }
