@@ -17,7 +17,7 @@ class Login extends Component {
   render() {
     return (
       <View
-        style={{ backgroundColor: "#505160", width: "100%", height: "100%" }}
+        style={{ backgroundColor: "#ffcdd2", width: "100%", height: "100%" }}
       >
         <View style={{ justifyContent: "center", margin: 20, marginTop: 50 }}>
           <Text
@@ -26,7 +26,7 @@ class Login extends Component {
               marginBottom: 50,
               textAlign: "center",
               fontSize: 25,
-              color: "#FFCDD2",
+              color: "#ec407a",
               fontWeight: "bold",
             }}
           >
@@ -35,31 +35,31 @@ class Login extends Component {
           <Card.Divider />
           <Input
             placeholder="Username"
-            placeholderTextColor={"#FFCDD2"}
+            placeholderTextColor={"#ec407a"}
             leftIcon={{
               name: "user-o",
               type: "font-awesome",
-              color: "#FFCDD2",
+              color: "#ec407a",
             }}
             value={this.state.username}
             onChangeText={(username) => this.setState({ username })}
           />
           <Input
             placeholder="Password"
-            placeholderTextColor={"#FFCDD2"}
-            leftIcon={{ name: "lock", type: "font-awesome", color: "#FFCDD2" }}
+            placeholderTextColor={"#ec407a"}
+            leftIcon={{ name: "lock", type: "font-awesome", color: "#ec407a" }}
             value={this.state.password}
             onChangeText={(password) => this.setState({ password })}
           />
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <CheckBox
               containerStyle={{ backgroundColor: null }}
-              checkedColor={"#FFCDD2"}
+              checkedColor={"#ec407a"}
               right
               checked={this.state.remember}
               onPress={() => this.setState({ remember: !this.state.remember })}
             />
-            <Text style={{ color: "#FFCDD2" }}>Remember me</Text>
+            <Text style={{ color: "#ec407a" }}>Remember me</Text>
           </View>
           <View style={{ margin: 20 }}>
             <TouchableOpacity
@@ -67,21 +67,23 @@ class Login extends Component {
                 height: 40,
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "#FFF",
+                backgroundColor: "#ec407a",
                 borderRadius: 10,
                 borderWidth: 1.5,
-                borderColor: "#FFCDD2",
+                borderColor: "#ec407a",
               }}
               onPress={() => this.handleLogin()}
             >
-              <Text style={{ fontSize: 20, color: "#FFCDD2" }}>Sign In</Text>
+              <Text style={{ fontSize: 20, color: "#FFF", fontWeight: "800" }}>
+                Sign In
+              </Text>
             </TouchableOpacity>
           </View>
           <Card.Divider />
           <View>
             <TouchableOpacity
               style={{
-                backgroundColor: "#FFCDD2",
+                backgroundColor: "#ec407a",
                 borderRadius: 10,
                 borderWidth: 5,
                 borderColor: "transparent",
@@ -97,14 +99,19 @@ class Login extends Component {
                 style={{ paddingRight: 10 }}
               />
               <Text
-                style={{ textAlign: "center", fontSize: 20, color: "#fff" }}
+                style={{
+                  textAlign: "center",
+                  fontSize: 20,
+                  color: "#fff",
+                  fontWeight: "800",
+                }}
               >
                 {this.state.signinFB}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                backgroundColor: "#FFCDD2",
+                backgroundColor: "#ec407a",
                 borderRadius: 10,
                 borderWidth: 5,
                 borderColor: "transparent",
@@ -121,7 +128,12 @@ class Login extends Component {
                 style={{ paddingRight: 10 }}
               />
               <Text
-                style={{ textAlign: "center", fontSize: 20, color: "#fff" }}
+                style={{
+                  textAlign: "center",
+                  fontSize: 20,
+                  color: "#fff",
+                  fontWeight: "800",
+                }}
               >
                 {this.state.signinGG}
               </Text>

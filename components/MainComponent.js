@@ -14,7 +14,39 @@ import {
 import Shelf from "./ShelfComponent";
 import Home from "./HomeComponent";
 import Bookdetail from "./BookdetailComponent";
+import Login from "./LoginComponent";
 
+/* LOGIN SCREEN */
+function LoginNavigatorScreen() {
+  const LoginNavigator = createStackNavigator();
+  return (
+    <LoginNavigator.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerShown: false,
+        headerStyle: { backgroundColor: "#FFCDD2" },
+        headerTintColor: "#fff",
+        headerTitleStyle: { color: "#fff" },
+      }}
+    >
+      <LoginNavigator.Screen
+        name="Login"
+        component={Login}
+        options={({ navigation }) => ({
+          headerTitle: "Login",
+          headerLeft: () => (
+            <Icon
+              name="menu"
+              size={36}
+              color="#fff"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
+    </LoginNavigator.Navigator>
+  );
+}
 /* HOME SCREEN */
 function HomeNavigatorScreen() {
   const HomeNavigator = createStackNavigator();
@@ -157,13 +189,30 @@ function MainNavigatorScreen() {
   const MainNavigator = createDrawerNavigator();
   return (
     <MainNavigator.Navigator
-      initialRouteName="HomeScreen"
+      initialRouteName="LoginScreen"
       screenOptions={{
         headerStyle: { backgourndColor: "#FFCDD2" },
         drawerStyle: { backgroundColor: "#fff" },
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
+      <MainNavigator.Screen
+        name="LoginScreen"
+        component={LoginNavigatorScreen}
+        options={{
+          title: "Login",
+          headerShown: false,
+          drawerIcon: ({ focused, size }) => (
+            <Icon
+              name="sign-in"
+              type="font-awesome"
+              size={size}
+              color={focused ? "#FFCDD2" : "#ccc"}
+            />
+          ),
+          drawerActiveTintColor: "#FFCDD2",
+        }}
+      />
       <MainNavigator.Screen
         name="HomeScreen"
         component={HomeNavigatorScreen}
