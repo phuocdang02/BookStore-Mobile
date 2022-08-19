@@ -135,6 +135,7 @@ export const BOOKS = [
     year: 1351,
     description: " ",
   },
+/* 
   {
     id: 11,
     author: "William Faulkner",
@@ -1205,4 +1206,5 @@ export const BOOKS = [
     year: 1951,
     description: " ",
   },
+  */
 ];

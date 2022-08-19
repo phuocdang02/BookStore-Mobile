@@ -15,7 +15,39 @@ import Shelf from "./ShelfComponent";
 import Home from "./HomeComponent";
 import Bookdetail from "./BookdetailComponent";
 import Login from "./LoginComponent";
+import Landing from "./LandingComponent";
 
+/* LANDING SCREEN */
+function LandingNavigatorScreen() {
+  const LandingNavigator = createStackNavigator();
+  return (
+    <LandingNavigator.Navigator
+      initialRouteName="Landing"
+      screenOptions={{
+        headerShown: false,
+        headerStyle: { backgroundColor: "#FFCDD2" },
+        headerTintColor: "#fff",
+        headerTitleStyle: { color: "#fff" },
+      }}
+    >
+      <LandingNavigator.Screen
+        name="Landing"
+        component={Landing}
+        options={({ navigation }) => ({
+          headerTitle: "Landing",
+          headerLeft: () => (
+            <Icon
+              name="menu"
+              size={36}
+              color="#fff"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
+    </LandingNavigator.Navigator>
+  );
+}
 /* LOGIN SCREEN */
 function LoginNavigatorScreen() {
   const LoginNavigator = createStackNavigator();
@@ -154,7 +186,7 @@ function CustomDrawerContent(props) {
       {/* LOGO and custom drawer */}
       <View
         style={{
-          backgroundColor: "#ffcdd2",
+          backgroundColor: "#ec407a",
           height: 80,
           alignItems: "center",
           flexDirection: "row",
@@ -162,8 +194,8 @@ function CustomDrawerContent(props) {
       >
         <View style={{ flex: 1 }}>
           <Image
-            source={require("./images/beloved.jpg")}
-            style={{ margin: 10, width: 80, height: 60 }}
+            source={require("../shared/logo.jpg")}
+            style={{ margin: 5, width: 80, height: 60, borderRadius: 50 }}
           />
         </View>
         <View style={{ flex: 2 }}>
@@ -189,13 +221,30 @@ function MainNavigatorScreen() {
   const MainNavigator = createDrawerNavigator();
   return (
     <MainNavigator.Navigator
-      initialRouteName="LoginScreen"
+      initialRouteName="LandingScreen"
       screenOptions={{
         headerStyle: { backgourndColor: "#FFCDD2" },
         drawerStyle: { backgroundColor: "#fff" },
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
+      <MainNavigator.Screen
+        name="LandingScreen"
+        component={LandingNavigatorScreen}
+        options={{
+          title: "Landing",
+          headerShown: false,
+          drawerIcon: ({ focused, size }) => (
+            <Icon
+              name="apple"
+              type="font-awesome"
+              size={size}
+              color={focused ? "#FFCDD2" : "#ccc"}
+            />
+          ),
+          drawerActiveTintColor: "#FFCDD2",
+        }}
+      />
       <MainNavigator.Screen
         name="LoginScreen"
         component={LoginNavigatorScreen}
