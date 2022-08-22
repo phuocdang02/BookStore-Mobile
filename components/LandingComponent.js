@@ -6,7 +6,25 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { Text } from "react-native-elements";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import Register from "./RegisterComponent";
+import Login from "./LoginComponent";
+
+const Stack = createNativeStackNavigator();
+
+const LandingStack = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 class Landing extends Component {
   render() {
@@ -25,7 +43,7 @@ class Landing extends Component {
         color: "#fff",
         fontSize: 20,
       },
-      button:{
+      button: {
         width: "50%",
         marginTop: 10,
         marginLeft: "25%",
@@ -43,7 +61,7 @@ class Landing extends Component {
           source={require("../shared/landing-page-bg.jpg")}
           style={styles.image}
         >
-          <Text style={styles.text}>WELCOME TO OUR BOOKSTORE</Text>
+          <Text style={styles.text}>WELCOME TO PASTEL</Text>
           <TouchableOpacity
             style={styles.button}
             onPress={() => Alert.alert("Go to Login Site")}
@@ -52,7 +70,7 @@ class Landing extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => Alert.alert("Go to Register Site")}
+            onPress={() => this.props.navigation.navigate("Register")}
           >
             <Text>Register...</Text>
           </TouchableOpacity>
