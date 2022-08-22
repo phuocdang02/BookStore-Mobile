@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Main from './components/MainComponent';
 
 // firebase
-import { initializeApp } from 'firebase/app';
+/* import { initializeApp } from 'firebase/app';
 const firebaseConfig = { databaseURL: 'https://pastel-bookshop-default-rtdb.asia-southeast1.firebasedatabase.app/' };
-initializeApp(firebaseConfig);
+initializeApp(firebaseConfig); */
 
 class App extends Component {
   render() {

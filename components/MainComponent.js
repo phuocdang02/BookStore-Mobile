@@ -3,6 +3,7 @@ import { View, Text, Linking } from "react-native";
 import { Icon, Image } from "react-native-elements";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -11,11 +12,12 @@ import {
 } from "@react-navigation/drawer";
 
 /* Declare Components */
-import Shelf from "./ShelfComponent";
-import Home from "./HomeComponent";
-import Bookdetail from "./BookdetailComponent";
-import Login from "./LoginComponent";
 import Landing from "./LandingComponent";
+import Login from "./LoginComponent";
+import Register from "./RegisterComponent";
+import Home from "./HomeComponent";
+import Shelf from "./ShelfComponent";
+import Bookdetail from "./BookdetailComponent";
 
 /* LANDING SCREEN */
 function LandingNavigatorScreen() {
@@ -48,12 +50,52 @@ function LandingNavigatorScreen() {
     </LandingNavigator.Navigator>
   );
 }
+/* TAB NAVIGATOR */
+function TabNavigatorScreen() {
+  const TabNavigator = createBottomTabNavigator();
+  return (
+    <TabNavigator.Navigator initialRouteName="Login">
+      <TabNavigator.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Icon
+              name="sign-in"
+              type="font-awesome"
+              size={size}
+              color={color}
+            />
+          ),
+          tabBarActiveTintColor: "#ec407a",
+        }}
+      />
+      <TabNavigator.Screen
+        name="Register"
+        component={Register}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <Icon
+              name="user-plus"
+              type="font-awesome"
+              size={size}
+              color={color}
+            />
+          ),
+          tabBarActiveTintColor: "#ec407a",
+        }}
+      />
+    </TabNavigator.Navigator>
+  );
+}
 /* LOGIN SCREEN */
 function LoginNavigatorScreen() {
   const LoginNavigator = createStackNavigator();
   return (
     <LoginNavigator.Navigator
-      initialRouteName="Login"
+      initialRouteName="LoginRegister"
       screenOptions={{
         headerShown: false,
         headerStyle: { backgroundColor: "#FFCDD2" },
@@ -62,8 +104,8 @@ function LoginNavigatorScreen() {
       }}
     >
       <LoginNavigator.Screen
-        name="Login"
-        component={Login}
+        name="LoginRegister"
+        component={TabNavigatorScreen}
         options={({ navigation }) => ({
           headerTitle: "Login",
           headerLeft: () => (
@@ -95,7 +137,6 @@ function HomeNavigatorScreen() {
     </HomeNavigator.Navigator>
   );
 }
-
 /* SHELF SCREEN */
 function ShelfNavigatorScreen() {
   const ShelfNavigator = createStackNavigator();
@@ -117,7 +158,6 @@ function ShelfNavigatorScreen() {
     </ShelfNavigator.Navigator>
   );
 }
-
 /* CONTACT SCREEN */
 function ContactNavigatorScreen() {
   const ContactNavigator = createStackNavigator();
@@ -200,7 +240,7 @@ function CustomDrawerContent(props) {
         </View>
         <View style={{ flex: 2 }}>
           <Text style={{ color: "#fff", fontSize: 22, fontWeight: "bold" }}>
-            BookStore
+            Pastel Bookshop
           </Text>
         </View>
       </View>
