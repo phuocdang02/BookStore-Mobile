@@ -223,7 +223,6 @@ function AboutNavigatorScreen() {
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-      {/* LOGO and custom drawer */}
       <View
         style={{
           backgroundColor: "#ec407a",

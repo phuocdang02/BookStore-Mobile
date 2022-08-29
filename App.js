@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import Main from './components/MainComponent';
+import React, { Component } from "react";
+import Main from "./components/MainComponent";
+import Demo from "./components/DemoComponent";
 
 // firebase
 /* import { initializeApp } from 'firebase/app';
@@ -9,7 +10,8 @@ initializeApp(firebaseConfig); */
 class App extends Component {
   render() {
     return (
-      <Main />
+      //<Main />
+      <Demo />
     );
   }
 }
