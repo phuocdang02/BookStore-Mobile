@@ -2,13 +2,26 @@ import React, { Component } from "react";
 import { View, Text, Alert, Button, TouchableOpacity } from "react-native";
 import { Card, Divider, Input, CheckBox, Icon } from "react-native-elements";
 import * as SecureStore from "expo-secure-store";
+import { getDatabase, ref, child, get } from "firebase/database";
+
+// redux
+import { connect } from "react-redux";
+const mapStateToProps = (state) => {
+  return {
+    users: state.users,
+  };
+};
+import { loginUser } from "../redux/ActionCreators";
+const mapDispatchToProps = (dispatch) => ({
+  loginUser: (userinfo) => dispatch(loginUser(userinfo)),
+});
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signinGG: "Sign In with Google",
-      signinFB: "Sign In with Facebook",
+      signinFB: "Login with Facebook",
+      signinGG: "Login with Google",
       username: "",
       password: "",
       remember: false,
@@ -48,6 +61,8 @@ class Login extends Component {
             placeholder="Password"
             placeholderTextColor={"#ec407a"}
             leftIcon={{ name: "lock", type: "font-awesome", color: "#ec407a" }}
+            secureTextEntry="true"
+            keyboardType="numeric"
             value={this.state.password}
             onChangeText={(password) => this.setState({ password })}
           />
@@ -144,34 +159,40 @@ class Login extends Component {
     );
   }
   componentDidMount() {
-    SecureStore.getItemAsync("userinfo").then((data) => {
-      const userinfo = JSON.parse(data);
-      if (userinfo && userinfo.remember === true) {
-        this.setState({
-          username: userinfo.username,
-          password: userinfo.password,
-          remember: userinfo.remember,
-        });
-      }
-    });
-  }
-  handleLogin() {
-    if (this.state.remember) {
-      SecureStore.setItemAsync(
-        "userinfo",
-        JSON.stringify({
-          username: this.state.username,
-          password: this.state.password,
-          remember: this.state.remember,
-        })
-      ).catch((error) => alert("Could not save user info", error));
-      alert("Remembered user!");
-    } else {
-      SecureStore.deleteItemAsync("userinfo").catch((error) =>
-        alert("Could not delete user info", error)
-      );
-      alert("Forgotten user!");
+    if (
+      this.props.users.userinfo &&
+      this.props.users.userinfo.remember === true
+    ) {
+      this.setState({
+        username: this.props.users.userinfo.username,
+        password: this.props.users.userinfo.password,
+        remember: this.props.users.userinfo.remember,
+      });
     }
   }
+  handleLogin() {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, "accounts/" + this.state.username))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const account = snapshot.val();
+          if (account.password === this.state.password) {
+            alert("Come on baby!");
+            const userinfo = {
+              username: this.state.username,
+              password: this.state.password,
+              remember: this.state.remember,
+            };
+            this.props.loginUser(userinfo);
+            this.props.navigation.navigate("HomeScreen");
+          } else {
+            alert("Invalid password!");
+          }
+        } else {
+          alert("Invalid username!");
+        }
+      })
+      .catch((error) => alert("Could not get data from firebase", error));
+  }
 }
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

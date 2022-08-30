@@ -1,41 +1,55 @@
 import React, { Component } from "react";
 import { FlatList } from "react-native";
 import { ListItem, Avatar } from "react-native-elements";
-import { ScrollView } from "react-native-virtualized-view";
-import { BOOKS } from "../shared/books";
+import { Text } from "react-native";
+import * as Animatable from "react-native-animatable";
+
+import { baseUrl } from "../shared/baseUrl";
+import Loading from "./LoadingComponent";
+
+//redux
+import { connect } from "react-redux";
+const mapStateToProps = (state) => {
+  return {
+    books: state.books,
+  };
+};
 
 class Shelf extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      books: BOOKS,
-    };
   }
   render() {
-    return (
-      <FlatList
-        data={this.state.books}
-        renderItem={({ item, index }) => this.renderShelfItem(item, index)}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    );
+    if (this.props.books.isLoading) {
+      return <Loading />;
+    } else if (this.props.books.errMess) {
+      return <Text>{this.props.errMess}</Text>;
+    } else {
+      return (
+        <FlatList
+          data={this.props.books.books}
+          renderItem={({ item, index }) => this.renderShelfItem(item, index)}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      );
+    }
   }
   renderShelfItem(item, index) {
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <Animatable.View animation="fadeInRightBig" duration={2000}>
         <ListItem
           key={index}
           onPress={() => navigate("Bookdetail", { bookId: item.id })}
         >
-          <Avatar source={require("./images/beloved.jpg")} />
+          <Avatar source={{ uri: baseUrl + item.image }} />
           <ListItem.Content>
             <ListItem.Title> {item.title} </ListItem.Title>
             <ListItem.Subtitle> {item.author} </ListItem.Subtitle>
           </ListItem.Content>
         </ListItem>
-      </ScrollView>
+      </Animatable.View>
     );
   }
 }
-export default Shelf;
+export default connect(mapStateToProps)(Shelf);

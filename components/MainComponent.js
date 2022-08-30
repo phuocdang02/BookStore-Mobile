@@ -11,6 +11,8 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 
+import { baseUrl } from "../shared/baseUrl";
+
 /* Declare Components */
 import Landing from "./LandingComponent";
 import Login from "./LoginComponent";
@@ -133,7 +135,21 @@ function HomeNavigatorScreen() {
         headerTitleStyle: { color: "#fff" },
       }}
     >
-      <HomeNavigator.Screen name="Home" component={Home} />
+      <HomeNavigator.Screen
+        name="Home"
+        component={Home}
+        options={({ navigation }) => ({
+          headerTitle: "Home",
+          headerLeft: () => (
+            <Icon
+              name="menu"
+              size={36}
+              color="#fff"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
     </HomeNavigator.Navigator>
   );
 }
@@ -149,11 +165,27 @@ function ShelfNavigatorScreen() {
         headerTitleStyle: { color: "#fff" },
       }}
     >
-      <ShelfNavigator.Screen name="Shelf" component={Shelf} />
+      <ShelfNavigator.Screen
+        name="Shelf"
+        component={Shelf}
+        options={({ navigation }) => ({
+          headerTitle: "Shelf",
+          headerLeft: () => (
+            <Icon
+              name="menu"
+              size={36}
+              color="#fff"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
       <ShelfNavigator.Screen
         name="Bookdetail"
         component={Bookdetail}
-        options={{ headerTitle: "Book Detail" }}
+        options={{
+          headerTitle: "Book Detail",
+        }}
       />
     </ShelfNavigator.Navigator>
   );
@@ -221,9 +253,10 @@ function AboutNavigatorScreen() {
 
 /* CUSTOM DRAWER */
 function CustomDrawerContent(props) {
+  const users = props.users;
+  const logoutUser = props.logoutUser;
   return (
     <DrawerContentScrollView {...props}>
-      {/* LOGO and custom drawer */}
       <View
         style={{
           backgroundColor: "#ec407a",
@@ -234,7 +267,7 @@ function CustomDrawerContent(props) {
       >
         <View style={{ flex: 1 }}>
           <Image
-            source={require("../shared/logo.jpg")}
+            source={{ uri: baseUrl + "images/logo.jpg" }}
             style={{ margin: 5, width: 80, height: 60, borderRadius: 50 }}
           />
         </View>
@@ -245,19 +278,43 @@ function CustomDrawerContent(props) {
         </View>
       </View>
       <DrawerItemList {...props} />
-      <DrawerItem
-        label="Help"
-        icon={({ focused, size }) => (
-          <Icon name="help" size={size} color={focused ? "#FFCDD2" : "#ccc"} />
-        )}
-        onPress={() => Linking.openURL("https://facebook.com/ha.phuocdang")}
-      />
+      {users.logged === false ? (
+        <DrawerItem
+          label="Help"
+          icon={({ focused, size }) => (
+            <Icon
+              name="help"
+              size={size}
+              color={focused ? "#FFCDD2" : "#ccc"}
+            />
+          )}
+          onPress={() => Linking.openURL("https://facebook.com/ha.phuocdang")}
+        />
+      ) : (
+        <DrawerItem
+          label={"[" + users.userinfo.username + "] Logout"}
+          icon={({ focused, color, size }) => (
+            <Icon
+              name="sign-out"
+              type="font-awesome"
+              size={size}
+              color={focused ? "#7cc" : "#ccc"}
+            />
+          )}
+          onPress={() => {
+            logoutUser();
+            props.navigation.navigate("LandingScreen");
+          }}
+        />
+      )}
     </DrawerContentScrollView>
   );
 }
 
 /* MAIN SCREEN with Drawer Navigator */
-function MainNavigatorScreen() {
+function MainNavigatorScreen(props) {
+  const users = props.users;
+  const logoutUser = props.logoutUser;
   const MainNavigator = createDrawerNavigator();
   return (
     <MainNavigator.Navigator
@@ -266,7 +323,9 @@ function MainNavigatorScreen() {
         headerStyle: { backgourndColor: "#FFCDD2" },
         drawerStyle: { backgroundColor: "#fff" },
       }}
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      drawerContent={(props) => (
+        <CustomDrawerContent {...props} users={users} logoutUser={logoutUser} />
+      )}
     >
       <MainNavigator.Screen
         name="LandingScreen"
@@ -285,23 +344,25 @@ function MainNavigatorScreen() {
           drawerActiveTintColor: "#FFCDD2",
         }}
       />
-      <MainNavigator.Screen
-        name="LoginScreen"
-        component={LoginNavigatorScreen}
-        options={{
-          title: "Login",
-          headerShown: false,
-          drawerIcon: ({ focused, size }) => (
-            <Icon
-              name="sign-in"
-              type="font-awesome"
-              size={size}
-              color={focused ? "#FFCDD2" : "#ccc"}
-            />
-          ),
-          drawerActiveTintColor: "#FFCDD2",
-        }}
-      />
+      {users.logged === false ? (
+        <MainNavigator.Screen
+          name="LoginScreen"
+          component={LoginNavigatorScreen}
+          options={{
+            title: "Login",
+            headerShown: false,
+            drawerIcon: ({ focused, size }) => (
+              <Icon
+                name="sign-in"
+                type="font-awesome"
+                size={size}
+                color={focused ? "#FFCDD2" : "#ccc"}
+              />
+            ),
+            drawerActiveTintColor: "#FFCDD2",
+          }}
+        />
+      ) : null}
       <MainNavigator.Screen
         name="HomeScreen"
         component={HomeNavigatorScreen}
@@ -366,13 +427,46 @@ function MainNavigatorScreen() {
   );
 }
 
+//redux
+import { connect } from "react-redux";
+import {
+  fetchLeaders,
+  fetchBooks,
+  fetchComments,
+  fetchPromos,
+  logoutUser,
+} from "../redux/ActionCreators";
+// redux
+const mapStateToProps = (state) => {
+  return {
+    users: state.users,
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  fetchLeaders: () => dispatch(fetchLeaders()),
+  fetchBooks: () => dispatch(fetchBooks()),
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos()),
+  logoutUser: () => dispatch(logoutUser()),
+});
+
 class Main extends Component {
   render() {
     return (
       <NavigationContainer>
-        <MainNavigatorScreen />
+        <MainNavigatorScreen
+          users={this.props.users}
+          logoutUser={this.props.logoutUser}
+        />
       </NavigationContainer>
     );
   }
+  componentDidMount() {
+    // redux
+    this.props.fetchLeaders();
+    this.props.fetchBooks();
+    this.props.fetchComments();
+    this.props.fetchPromos();
+  }
 }
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

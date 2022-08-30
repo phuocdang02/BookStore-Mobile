@@ -1,8 +1,16 @@
 import React, { Component } from "react";
-import { ScrollView, View, Button, Image } from "react-native";
+import {
+  ScrollView,
+  View,
+  Button,
+  Image,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { Input } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
 import { baseUrl } from "../shared/baseUrl";
+import { getDatabase, ref, child, set } from "firebase/database";
 
 class Register extends Component {
   constructor(props) {
@@ -15,8 +23,13 @@ class Register extends Component {
   }
   render() {
     return (
-      <ScrollView>
-        <View style={{ justifyContent: "center", margin: 20 }}>
+      <ScrollView style={{ backgroundColor: "#ffcdd2" }}>
+        <View
+          style={{
+            justifyContent: "center",
+            margin: 20,
+          }}
+        >
           <View style={{ flex: 1, flexDirection: "row", margin: 50 }}>
             <Image
               style={{ margin: 10, width: 80, height: 60 }}
@@ -32,6 +45,7 @@ class Register extends Component {
           </View>
           <Input
             placeholder="Username"
+            placeholderTextColor={"#ec407a"}
             leftIcon={{
               type: "font-awesome",
               name: "user-o",
@@ -42,6 +56,7 @@ class Register extends Component {
           />
           <Input
             placeholder="Password"
+            placeholderTextColor={"#ec407a"}
             leftIcon={{ type: "font-awesome", name: "lock", color: "#ec407a" }}
             textContentType="password"
             secureTextEntry="true"
@@ -50,11 +65,22 @@ class Register extends Component {
             onChangeText={(password) => this.setState({ password })}
           />
           <View style={{ marginTop: 20 }}>
-            <Button
-              title="Register"
-              color="#ec407a"
+            <TouchableOpacity
+              style={{
+                height: 40,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#ec407a",
+                borderRadius: 10,
+                borderWidth: 1.5,
+                borderColor: "#ec407a",
+              }}
               onPress={() => this.handleRegister()}
-            />
+            >
+              <Text style={{ fontSize: 20, color: "#FFF", fontWeight: "800" }}>
+                Register
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -73,7 +99,15 @@ class Register extends Component {
     }
   }
   handleRegister() {
-    alert("Coming soon!");
+    const dbRef = ref(getDatabase());
+    set(child(dbRef, "accounts/" + this.state.username), {
+      username: this.state.username,
+      password: this.state.password,
+    })
+      .then(() => {
+        alert("Ok baby!");
+      })
+      .catch((error) => alert("Could not set data from firebase", error));
   }
 }
 export default Register;
