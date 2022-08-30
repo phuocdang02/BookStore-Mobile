@@ -34,7 +34,7 @@ class Contact extends Component {
           <Text style={{ margin: 10 }}>Email: {this.state.email}</Text>
           <Button
             title=" Compose Email"
-            buttonStyle={{ backgroundColor: "#7cc" }}
+            buttonStyle={{ backgroundColor: "#FFCDD2" }}
             icon={<Icon name="envelope-o" type="font-awesome" color="white" />}
             onPress={this.composeMail}
           />

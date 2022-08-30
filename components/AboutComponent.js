@@ -87,13 +87,10 @@ const mapStateToProps = (state) => {
 class About extends Component {
   constructor(props) {
     super(props);
-    /*this.state = {
-      leaders: LEADERS
-    };*/
   }
   render() {
     return (
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
           <RenderHistory />
         </Animatable.View>

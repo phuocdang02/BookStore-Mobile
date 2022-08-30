@@ -24,7 +24,14 @@ class Landing extends Component {
         backgroundColor: "transparent",
         fontWeight: "bold",
         color: "#fff",
-        fontSize: 20,
+        fontSize: 30,
+      },
+      subtext:{
+        textAlign: "center",
+        backgroundColor: "transparent",
+        fontWeight:"bold",
+        color: "#fff",
+        fontSize: 25,
       },
       button: {
         width: "50%",
@@ -41,10 +48,11 @@ class Landing extends Component {
     return (
       <View style={{ backgroundColor: "transparent" }}>
         <ImageBackground
-          source={{ uri: baseUrl + "images/logo.jpg" }}
+          source={{ uri: baseUrl + "images/landing-page-bg.jpg" }}
           style={styles.image}
         >
           <Text style={styles.text}>WELCOME TO PASTEL</Text>
+          <Text style={styles.subtext}>Library</Text>
           <TouchableOpacity
             style={styles.button}
             onPress={() => Alert.alert("Go to Login Site")}

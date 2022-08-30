@@ -20,6 +20,9 @@ import Register from "./RegisterComponent";
 import Home from "./HomeComponent";
 import Shelf from "./ShelfComponent";
 import Bookdetail from "./BookdetailComponent";
+import About from "./AboutComponent";
+import Contact from "./ContactComponent";
+import Favorite from "./FavoriteComponent";
 
 /* LANDING SCREEN */
 function LandingNavigatorScreen() {
@@ -130,9 +133,11 @@ function HomeNavigatorScreen() {
     <HomeNavigator.Navigator
       initialRouteName="Home"
       screenOptions={{
+        headerShown: false,
         headerStyle: { backgroundColor: "#FFCDD2" },
         headerTintColor: "#fff",
         headerTitleStyle: { color: "#fff" },
+        cardStyle: { marginTop: 50 },
       }}
     >
       <HomeNavigator.Screen
@@ -160,6 +165,7 @@ function ShelfNavigatorScreen() {
     <ShelfNavigator.Navigator
       initialRouteName="Shelf"
       screenOptions={{
+        headerShown: false,
         headerStyle: { backgroundColor: "#FFCDD2" },
         headerTintColor: "#fff",
         headerTitleStyle: { color: "#fff" },
@@ -190,6 +196,41 @@ function ShelfNavigatorScreen() {
     </ShelfNavigator.Navigator>
   );
 }
+/* FAVORITE SCREEN */
+function FavoritesNavigatorScreen() {
+  const FavoritesNavigator = createStackNavigator();
+  return (
+    <FavoritesNavigator.Navigator
+      initialRouteName="Favorites"
+      screenOptions={{
+        headerStyle: { backgroundColor: "#FFCDD2" },
+        headerTintColor: "#fff",
+        headerTitleStyle: { color: "#fff" },
+      }}
+    >
+      <FavoritesNavigator.Screen
+        name="Favorites"
+        component={Favorite}
+        options={({ navigation }) => ({
+          headerTitle: "My Favorites",
+          headerLeft: () => (
+            <Icon
+              name="menu"
+              size={36}
+              color="#fff"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        })}
+      />
+      <FavoritesNavigator.Screen
+        name="Bookdetail"
+        component={Bookdetail}
+        options={{ headerTitle: "Book Detail" }}
+      />
+    </FavoritesNavigator.Navigator>
+  );
+}
 /* CONTACT SCREEN */
 function ContactNavigatorScreen() {
   const ContactNavigator = createStackNavigator();
@@ -197,16 +238,18 @@ function ContactNavigatorScreen() {
     <ContactNavigator.Navigator
       initialRouteName="Contact"
       screenOptions={{
-        headerStyle: { backgroundColor: "#7cc" },
+        headerShown: false,
+        headerStyle: { backgroundColor: "#FFCDD2" },
         headerTintColor: "#fff",
         headerTitleStyle: { color: "#fff" },
+        cardStyle: { marginTop: 50 },
       }}
     >
       <ContactNavigator.Screen
         name="Contact"
         component={Contact}
         options={({ navigation }) => ({
-          headerTitle: "About",
+          headerTitle: "Contact",
           headerLeft: () => (
             <Icon
               name="menu"
@@ -227,9 +270,11 @@ function AboutNavigatorScreen() {
     <AboutNavigator.Navigator
       initialRouteName="About"
       screenOptions={{
-        headerStyle: { backgroundColor: "#7cc" },
+        headerShown: false,
+        headerStyle: { backgroundColor: "#FFCDD2" },
         headerTintColor: "#fff",
         headerTitleStyle: { color: "#fff" },
+        cardStyle: { marginTop: 50 },
       }}
     >
       <AboutNavigator.Screen
@@ -273,7 +318,7 @@ function CustomDrawerContent(props) {
         </View>
         <View style={{ flex: 2 }}>
           <Text style={{ color: "#fff", fontSize: 22, fontWeight: "bold" }}>
-            Pastel Bookshop
+            Pastel Library
           </Text>
         </View>
       </View>
@@ -298,7 +343,7 @@ function CustomDrawerContent(props) {
               name="sign-out"
               type="font-awesome"
               size={size}
-              color={focused ? "#7cc" : "#ccc"}
+              color={focused ? "#ffcdd2" : "#ccc"}
             />
           )}
           onPress={() => {
@@ -396,15 +441,36 @@ function MainNavigatorScreen(props) {
         }}
       />
       <MainNavigator.Screen
+        name="FavoritesScreen"
+        component={FavoritesNavigatorScreen}
+        options={{
+          title: "My Favorites",
+          headerShown: false,
+          drawerIcon: ({ focused, size }) => (
+            <Icon
+              name="heart"
+              type="font-awesome"
+              size={size}
+              color={focused ? "#FFCDD2" : "#ccc"}
+            />
+          ),
+          drawerActiveTintColor: "#FFCDD2",
+        }}
+      />
+      <MainNavigator.Screen
         name="AboutScreen"
         component={AboutNavigatorScreen}
         options={{
           title: "About Us",
           headerShown: false,
           drawerIcon: ({ focused, size }) => (
-            <Icon name="info" size={size} color={focused ? "#7cc" : "#ccc"} />
+            <Icon
+              name="info"
+              size={size}
+              color={focused ? "#FFCDD2" : "#ccc"}
+            />
           ),
-          drawerActiveTintColor: "#7cc",
+          drawerActiveTintColor: "#FFCDD2",
         }}
       />
       <MainNavigator.Screen
@@ -417,10 +483,10 @@ function MainNavigatorScreen(props) {
             <Icon
               name="contacts"
               size={size}
-              color={focused ? "#7cc" : "#ccc"}
+              color={focused ? "#FFCDD2" : "#ccc"}
             />
           ),
-          drawerActiveTintColor: "#7cc",
+          drawerActiveTintColor: "#FFCDD2",
         }}
       />
     </MainNavigator.Navigator>

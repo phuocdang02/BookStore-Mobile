@@ -20,7 +20,6 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signinFB: "Login with Facebook",
       signinGG: "Login with Google",
       username: "",
       password: "",
@@ -61,7 +60,7 @@ class Login extends Component {
             placeholder="Password"
             placeholderTextColor={"#ec407a"}
             leftIcon={{ name: "lock", type: "font-awesome", color: "#ec407a" }}
-            secureTextEntry="true"
+            secureTextEntry={true}
             keyboardType="numeric"
             value={this.state.password}
             onChangeText={(password) => this.setState({ password })}
@@ -96,34 +95,6 @@ class Login extends Component {
           </View>
           <Card.Divider />
           <View>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#ec407a",
-                borderRadius: 10,
-                borderWidth: 5,
-                borderColor: "transparent",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-              onPress={() => Alert.alert("This is for Login with Facebook")}
-            >
-              <Icon
-                type="font-awesome"
-                name="facebook"
-                color={"#FFF"}
-                style={{ paddingRight: 10 }}
-              />
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: 20,
-                  color: "#fff",
-                  fontWeight: "800",
-                }}
-              >
-                {this.state.signinFB}
-              </Text>
-            </TouchableOpacity>
             <TouchableOpacity
               style={{
                 backgroundColor: "#ec407a",
@@ -177,7 +148,6 @@ class Login extends Component {
         if (snapshot.exists()) {
           const account = snapshot.val();
           if (account.password === this.state.password) {
-            alert("Come on baby!");
             const userinfo = {
               username: this.state.username,
               password: this.state.password,

@@ -59,7 +59,8 @@ class Register extends Component {
             placeholderTextColor={"#ec407a"}
             leftIcon={{ type: "font-awesome", name: "lock", color: "#ec407a" }}
             textContentType="password"
-            secureTextEntry="true"
+            secureTextEntry={true}
+          accessibilityElementsHidden={true}
             keyboardType="numeric"
             value={this.state.password}
             onChangeText={(password) => this.setState({ password })}

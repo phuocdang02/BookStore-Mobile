@@ -30,6 +30,7 @@ class Shelf extends Component {
           data={this.props.books.books}
           renderItem={({ item, index }) => this.renderShelfItem(item, index)}
           keyExtractor={(item) => item.id.toString()}
+          style={{marginTop:50}}
         />
       );
     }
@@ -42,7 +43,7 @@ class Shelf extends Component {
           key={index}
           onPress={() => navigate("Bookdetail", { bookId: item.id })}
         >
-          <Avatar source={{ uri: baseUrl + item.image }} />
+          <Avatar source={{ uri: baseUrl + item.imageLink }} />
           <ListItem.Content>
             <ListItem.Title> {item.title} </ListItem.Title>
             <ListItem.Subtitle> {item.author} </ListItem.Subtitle>

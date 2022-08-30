@@ -40,9 +40,8 @@ class RenderSlider extends Component {
   }
   render() {
     const images = [
-      baseUrl + this.props.book.image,
-      baseUrl + "images/beloved.jpg",
-      baseUrl + "images/logo.jpg",
+      baseUrl + this.props.book.imageLink,
+      baseUrl + "images/landing-page-bg.jpg",
     ];
     return (
       <Card onLayout={this.onLayout}>
@@ -104,7 +103,7 @@ class RenderBook extends Component {
     if (book != null) {
       return (
         <Card {...panResponder.panHandlers}>
-          <Card.Title>{book.name}</Card.Title>
+          <Card.Title>{book.title}</Card.Title>
           <Card.Divider />
           <Text style={{ margin: 10 }}>{book.description}</Text>
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -180,7 +179,6 @@ class Bookdetail extends Component {
   }
   render() {
     const bookId = parseInt(this.props.route.params.bookId);
-    const book = this.state.books[bookId];
     return(
       <View>
         <Modal
@@ -231,7 +229,7 @@ class Bookdetail extends Component {
             <RenderSlider book={this.props.books.books[bookId]} />
           </Animatable.View>
           <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
-            <RenderDish
+            <RenderBook
               book={this.props.books.books[bookId]}
               favorite={this.props.favorites.some((el) => el === bookId)}
               onPressFavorite={() => this.markFavorite(bookId)}

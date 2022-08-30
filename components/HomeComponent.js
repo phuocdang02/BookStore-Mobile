@@ -18,7 +18,7 @@ class RenderItem extends Component {
         return (
           <Card>
             <Image
-              source={{ uri: baseUrl + item.image }}
+              source={{ uri: baseUrl + item.imageLink }}
               style={{
                 width: "100%",
                 height: 100,
@@ -27,7 +27,7 @@ class RenderItem extends Component {
                 justifyContent: "center",
               }}
             >
-              <Card.FeaturedTitle>{item.name}</Card.FeaturedTitle>
+              <Card.FeaturedTitle>{item.name || item.title }</Card.FeaturedTitle>
               <Card.FeaturedSubtitle>{item.designation}</Card.FeaturedSubtitle>
             </Image>
             <Text style={{ margin: 10 }}>{item.description}</Text>
@@ -57,14 +57,14 @@ class Home extends Component {
     const book = this.props.books.books.filter(
       (book) => book.featured === true
     )[0];
-    const promotions = this.props.promotions.promotions.filter(
-      (promo) => promo.featured === true
+    const promotions = this.props.leaders.leaders.filter(
+      (promo) => promo.featured === false
     )[0];
     const leaders = this.props.leaders.leaders.filter(
       (leader) => leader.featured === true
     )[0];
     return (
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
           <RenderItem
             item={book}

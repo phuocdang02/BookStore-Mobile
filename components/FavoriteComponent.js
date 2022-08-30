@@ -51,9 +51,9 @@ class Favorites extends Component {
         key={index}
         onPress={() => navigate("Bookdetail", { bookId: item.id })}
       >
-        <Avatar source={{ uri: baseUrl + item.image }} />
+        <Avatar source={{ uri: baseUrl + item.imageLink }} />
         <ListItem.Content>
-          <ListItem.Title>{item.name}</ListItem.Title>
+          <ListItem.Title>{item.title}</ListItem.Title>
           <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
         </ListItem.Content>
       </ListItem>
