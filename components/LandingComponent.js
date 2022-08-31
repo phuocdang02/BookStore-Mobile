@@ -11,6 +11,7 @@ import { baseUrl } from "../shared/baseUrl";
 
 class Landing extends Component {
   render() {
+    const {navigate} = this.props.navigation;
     const styles = StyleSheet.create({
       image: {
         width: "100%",
@@ -55,13 +56,13 @@ class Landing extends Component {
           <Text style={styles.subtext}>Library</Text>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => Alert.alert("Go to Login Site")}
+            onPress={() => navigate("LoginScreen")}
           >
             <Text>I already have Account...</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => Alert.alert("Go to Login Site")}
+            onPress={() => navigate("Register")}
           >
             <Text>Register...</Text>
           </TouchableOpacity>
